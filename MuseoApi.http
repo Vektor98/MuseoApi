@@ -1,0 +1,167 @@
+@host = https://localhost:7130
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwiZW1haWwiOiJvcGVyYXRvcmVAbXVzZW8uaXQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJPcGVyYXRvcmUiLCJleHAiOjE3OTM1NTc5NjgsImlzcyI6Ik11c2VvQXBpIiwiYXVkIjoiTXVzZW9BcGlDbGllbnQifQ.YSGqn62VLIyJgi1cF5vSE-5u2ymEhXHnfiDl5dTra8c
+
+### Login amministratore
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@museo.it",
+  "password": "Password123!"
+}
+
+### Login operatore
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "operatore@museo.it",
+  "password": "Password123!"
+}
+
+### Login visitatore
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "luca.neri@example.it",
+  "password": "Password123!"
+}
+
+### Elenco mostre
+GET {{host}}/api/mostre
+
+### Dettaglio mostra con opere esposte
+GET {{host}}/api/mostre/1
+
+### Turni prenotabili di una mostra
+GET {{host}}/api/mostre/1/turni?soloDisponibili=true
+
+### Collezione
+GET {{host}}/api/opere?q=Burri
+
+### Prenotazione di 2 ingressi (token visitatore)
+POST {{host}}/api/prenotazioni
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "turnoVisitaId": 91,
+  "numeroPosti": 9
+}
+
+### Stessa prenotazione ripetuta: attesa 409
+POST {{host}}/api/prenotazioni
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "turnoVisitaId": 1,
+  "numeroPosti": 1
+}
+
+### Oltre il limite di ingressi per prenotazione: attesa 400
+POST {{host}}/api/prenotazioni
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "turnoVisitaId": 2,
+  "numeroPosti": 12
+}
+
+### Le mie prenotazioni
+GET {{host}}/api/prenotazioni/mie
+Authorization: Bearer {{token}}
+
+### Annullamento prenotazione
+DELETE {{host}}/api/prenotazioni/1
+Authorization: Bearer {{token}}
+
+### Feedback su visita non ancora conclusa: attesa 409
+POST {{host}}/api/feedback
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "prenotazioneId": 4,
+  "valutazione": 5,
+  "commento": "Bellissima mostra."
+}
+
+### Nuova mostra (token operatore)
+POST {{host}}/api/mostre
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "titolo": "Mostra sovrapposta",
+  "descrizione": "Verifica del vincolo di occupazione della sala",
+  "curatore": "Prova",
+  "dataInizio": "2026-11-10",
+  "dataFine": "2026-11-20",
+  "salaId": 1
+}
+
+### Mostra sovrapposta nella stessa sala: attesa 409
+POST {{host}}/api/mostre
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "titolo": "Mostra in conflitto",
+  "descrizione": null,
+  "curatore": null,
+  "dataInizio": "2027-02-10",
+  "dataFine": "2027-03-10",
+  "salaId": 3
+}
+
+### Generazione automatica dei turni (token operatore)
+POST {{host}}/api/mostre/2/turni/genera
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "giorniApertura": [2, 3, 4, 5, 6, 0],
+  "orariIngresso": ["10:00", "12:00", "16:00"],
+  "durataMinuti": 90,
+  "postiPerTurno": 25
+}
+
+### Posti per turno oltre la capienza della sala: attesa 400
+POST {{host}}/api/mostre/2/turni/genera
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "giorniApertura": [6],
+  "orariIngresso": ["11:00"],
+  "durataMinuti": 60,
+  "postiPerTurno": 500
+}
+
+### Elenco prenotati di un turno (token operatore)
+GET {{host}}/api/turni/1/prenotazioni
+Authorization: Bearer {{token}}
+
+### Annullamento mostra con turni e prenotazioni (token operatore)
+DELETE {{host}}/api/mostre/2
+Authorization: Bearer {{token}}
+
+### Elenco utenti (token amministratore)
+GET {{host}}/api/utenti
+Authorization: Bearer {{token}}
+
+### Promozione a operatore (token amministratore)
+PUT {{host}}/api/utenti/4/ruolo?ruoloId=2
+Authorization: Bearer {{token}}
+
+### Dashboard (token amministratore)
+GET {{host}}/api/dashboard
+Authorization: Bearer {{token}}
+
+### Dashboard senza token: attesa 401
+GET {{host}}/api/dashboard
+
+

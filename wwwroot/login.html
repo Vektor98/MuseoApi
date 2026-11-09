@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accedi — Museo Civico</title>
+  <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+  <header class="sito">
+    <div class="barra">
+      <a class="marchio" href="/index.html">Museo Civico <span>Pinacoteca e gabinetto dei disegni</span></a>
+      <nav class="menu"></nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Accedi</h1>
+    <p class="sottotitolo">Serve un account per prenotare le visite e lasciare un giudizio.</p>
+
+    <p class="avviso" id="avviso"></p>
+
+    <form class="modulo" id="modulo">
+      <label>
+        Email
+        <input type="email" id="email" required autocomplete="email">
+      </label>
+      <label>
+        Password
+        <input type="password" id="password" required autocomplete="current-password">
+      </label>
+      <button type="submit">Accedi</button>
+    </form>
+  </main>
+
+  <footer class="sito">
+    <div>Prototipo realizzato per il project work in Informatica per le aziende digitali</div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script>
+    const avviso = document.getElementById("avviso");
+
+    document.getElementById("modulo").addEventListener("submit", async e => {
+      e.preventDefault();
+      nascondiAvviso(avviso);
+
+      try {
+        const sessione = await api.login(
+          document.getElementById("email").value.trim(),
+          document.getElementById("password").value);
+
+        salvaSessione(sessione);
+        location.href = "/index.html";
+      } catch {
+        mostraAvviso(avviso, "Email o password non corretti.");
+      }
+    });
+  </script>
+</body>
+</html>

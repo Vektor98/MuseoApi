@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrati — Museo Civico</title>
+  <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+  <header class="sito">
+    <div class="barra">
+      <a class="marchio" href="/index.html">Museo Civico <span>Pinacoteca e gabinetto dei disegni</span></a>
+      <nav class="menu"></nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Registrati</h1>
+    <p class="sottotitolo">La registrazione è gratuita e dà accesso alle prenotazioni.</p>
+
+    <p class="avviso" id="avviso"></p>
+
+    <form class="modulo" id="modulo">
+      <div class="coppia">
+        <label>
+          Nome
+          <input type="text" id="nome" required>
+        </label>
+        <label>
+          Cognome
+          <input type="text" id="cognome" required>
+        </label>
+      </div>
+      <label>
+        Email
+        <input type="email" id="email" required autocomplete="email">
+      </label>
+      <label>
+        Telefono (facoltativo)
+        <input type="tel" id="telefono">
+      </label>
+      <label>
+        Password (almeno 8 caratteri)
+        <input type="password" id="password" required minlength="8" autocomplete="new-password">
+      </label>
+      <button type="submit">Crea account</button>
+    </form>
+  </main>
+
+  <footer class="sito">
+    <div>Prototipo realizzato per il project work in Informatica per le aziende digitali</div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script>
+    const avviso = document.getElementById("avviso");
+
+    document.getElementById("modulo").addEventListener("submit", async e => {
+      e.preventDefault();
+      nascondiAvviso(avviso);
+
+      const dati = {
+        nome: document.getElementById("nome").value.trim(),
+        cognome: document.getElementById("cognome").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        telefono: document.getElementById("telefono").value.trim() || null,
+        password: document.getElementById("password").value
+      };
+
+      try {
+        await api.registra(dati);
+        const sessione = await api.login(dati.email, dati.password);
+        salvaSessione(sessione);
+        location.href = "/index.html";
+      } catch (errore) {
+        mostraAvviso(avviso, errore.message);
+      }
+    });
+  </script>
+</body>
+</html>

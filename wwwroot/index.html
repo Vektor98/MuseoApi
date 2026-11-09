@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mostre — Museo Civico</title>
+  <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+  <header class="sito">
+    <div class="barra">
+      <a class="marchio" href="/index.html">Museo Civico <span>Pinacoteca e gabinetto dei disegni</span></a>
+      <nav class="menu"></nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Mostre e turni di visita</h1>
+    <p class="sottotitolo">Si entra per turni, con un numero chiuso di posti. Scegli la mostra e l'orario che preferisci.</p>
+
+    <p class="avviso" id="avviso"></p>
+
+    <div class="filtri">
+      <label>
+        Stato
+        <select id="filtroStato">
+          <option value="">Tutte le mostre</option>
+          <option value="2">In corso</option>
+          <option value="1">In programma</option>
+          <option value="3">Concluse</option>
+        </select>
+      </label>
+      <button id="applica">Filtra</button>
+      <button id="azzera" class="secondario">Azzera</button>
+    </div>
+
+    <div class="righe" id="elenco"></div>
+  </main>
+
+  <footer class="sito">
+    <div>Prototipo realizzato per il project work in Informatica per le aziende digitali</div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/mostre.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — Museo Civico</title>
+  <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+  <header class="sito">
+    <div class="barra">
+      <a class="marchio" href="/index.html">Museo Civico <span>Pinacoteca e gabinetto dei disegni</span></a>
+      <nav class="menu"></nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Dashboard</h1>
+    <p class="sottotitolo">Indicatori sulle visite e amministrazione degli utenti.</p>
+
+    <p class="avviso" id="avviso"></p>
+
+    <div class="indicatori" id="indicatori"></div>
+
+    <h2>Ingressi per mese</h2>
+    <div id="perMese"></div>
+
+    <h2>Utenti registrati</h2>
+    <div id="utenti"></div>
+  </main>
+
+  <footer class="sito">
+    <div>Prototipo realizzato per il project work in Informatica per le aziende digitali</div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

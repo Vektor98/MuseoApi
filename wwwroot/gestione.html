@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestione mostre — Museo Civico</title>
+  <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+  <header class="sito">
+    <div class="barra">
+      <a class="marchio" href="/index.html">Museo Civico <span>Pinacoteca e gabinetto dei disegni</span></a>
+      <nav class="menu"></nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Gestione mostre</h1>
+    <p class="sottotitolo">Crea mostre, genera i turni di visita, consulta i prenotati.</p>
+
+    <p class="avviso" id="avviso"></p>
+
+    <h2>Calendario</h2>
+    <div class="schede" id="schede">
+      <button class="scheda attiva" data-vista="corso">In corso</button>
+      <button class="scheda" data-vista="programma">In programma</button>
+      <button class="scheda" data-vista="archivio">Archivio</button>
+    </div>
+    <div id="elencoMostre"></div>
+
+    <h2 id="titoloTurni" hidden>Turni</h2>
+    <div class="con-calendario" id="areaTurni" hidden>
+      <div>
+        <div id="calendario"></div>
+        <div class="legenda" id="legenda"></div>
+      </div>
+      <div>
+        <p class="giorno-scelto" id="giornoScelto"></p>
+        <div id="turni"></div>
+      </div>
+    </div>
+
+    <h2 id="titoloPrenotati" hidden>Prenotati</h2>
+    <div id="prenotati"></div>
+
+    <h2>Nuova mostra</h2>
+    <form class="modulo largo" id="moduloMostra">
+      <div class="coppia">
+        <label>
+          Titolo
+          <input type="text" id="titolo" required>
+        </label>
+        <label>
+          Curatore
+          <input type="text" id="curatore">
+        </label>
+      </div>
+      <label>
+        Descrizione
+        <textarea id="descrizione" rows="3"></textarea>
+      </label>
+      <div class="coppia">
+        <label>
+          Apertura
+          <input type="date" id="dataInizio" required>
+        </label>
+        <label>
+          Chiusura
+          <input type="date" id="dataFine" required>
+        </label>
+      </div>
+      <label>
+        Sala
+        <select id="sala"></select>
+      </label>
+      <button type="submit">Crea mostra</button>
+    </form>
+
+    <h2>Generazione turni</h2>
+    <form class="modulo largo" id="moduloTurni">
+      <label>
+        Mostra
+        <select id="mostraTurni"></select>
+      </label>
+      <label>
+        Giorni di apertura
+        <span id="giorni" style="display:flex;flex-wrap:wrap;gap:16px;padding-top:4px"></span>
+      </label>
+      <div class="coppia">
+        <label>
+          Orari di ingresso, separati da virgola
+          <input type="text" id="orari" value="10:00, 12:00, 16:00" required>
+        </label>
+        <label>
+          Durata della visita in minuti
+          <input type="number" id="durata" value="90" min="15" step="15" required>
+        </label>
+      </div>
+      <label>
+        Posti per turno
+        <input type="number" id="posti" value="25" min="1" required>
+      </label>
+      <button type="submit">Genera turni</button>
+    </form>
+  </main>
+
+  <footer class="sito">
+    <div>Prototipo realizzato per il project work in Informatica per le aziende digitali</div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script type="module" src="/js/gestione.js"></script>
+</body>
+</html>

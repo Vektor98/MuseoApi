@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collezione — Museo Civico</title>
+  <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+  <header class="sito">
+    <div class="barra">
+      <a class="marchio" href="/index.html">Museo Civico <span>Pinacoteca e gabinetto dei disegni</span></a>
+      <nav class="menu"></nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Collezione</h1>
+    <p class="sottotitolo">Le opere del museo, esposte nelle mostre in corso o conservate in deposito.</p>
+
+    <p class="avviso" id="avviso"></p>
+
+    <div class="filtri">
+      <label>
+        Ricerca
+        <input type="search" id="q" placeholder="Burri, Marina al tramonto…">
+      </label>
+      <button id="cerca">Cerca</button>
+    </div>
+
+    <div id="risultati"></div>
+
+    <section id="areaOperatore" hidden>
+      <h2>Aggiungi un'opera</h2>
+      <form class="modulo largo" id="moduloOpera">
+        <div class="coppia">
+          <label>
+            Titolo
+            <input type="text" id="titolo" required>
+          </label>
+          <label>
+            Autore
+            <input type="text" id="autore" required>
+          </label>
+        </div>
+        <div class="coppia">
+          <label>
+            Anno
+            <input type="number" id="anno" min="0" max="2100">
+          </label>
+          <label>
+            Numero di inventario
+            <input type="text" id="inventario">
+          </label>
+        </div>
+        <div class="coppia">
+          <label>
+            Tecnica
+            <input type="text" id="tecnica" placeholder="Olio su tela, acquaforte…">
+          </label>
+          <label>
+            Esposta nella mostra
+            <select id="mostra"><option value="">Nessuna, va in deposito</option></select>
+          </label>
+        </div>
+        <button type="submit">Aggiungi alla collezione</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="sito">
+    <div>Prototipo realizzato per il project work in Informatica per le aziende digitali</div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/collezione.js"></script>
+</body>
+</html>
